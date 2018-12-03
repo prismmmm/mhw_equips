@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="js/jquery.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <title>Document </title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <a href="add.html"> add equip</a>
+            <!-- <div class="search">
+                <input type="text" id="textbox">
+            </div> -->
+            <select name="horoscope" size="1" id="combobox">
+                <option value="all">all</option>
+            </select>
+        </div>
+    </header>
+    <div class="main">
+
+        <div class="content">
+
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+
+
+            update('')
+        }
+
+
+        $('#combobox').change(function () {
+            var val = $(this).val();
+            update(val);
+            // if(val != 'none'){
+            //     alert(val)
+            // }
+        })
+
+        function del(name) {
+            if (window.confirm('削除しますか？')) {
+
+                var ajax = new XMLHttpRequest();
+                ajax.open("get", `./delete.php?name=${name}`);
+                ajax.send(); // 通信させます。
+                ajax.addEventListener("load", function () { // loadイベントを登録します。
+                    console.log(ajax.responseText);
+                    location.reload();
+                })
+            }
+            else {
+            }
+        }
+
+        function update(user) {
+            var ajax = new XMLHttpRequest();
+            ajax.open("get", `./php/get_equip.php`);
+            ajax.send(); // 通信させます。
+            ajax.addEventListener("load", function () { // loadイベントを登録します。
+                console.log(ajax.responseText);
+
+                var json_raw = ajax.responseText;
+                var data = JSON.parse(json_raw);
+                $('.content').html('');
+                //document.getElementById("combobox").removeChild(document.getElementById("combobox").lastChild)
+                var cnt = 0;
+                data.forEach(j => {
+                    //select 追加
+
+                    if (user == '') {
+                        let op = document.createElement("option");//value値
+                        op.value = j.user;
+                        op.text = j.user;   //テキスト値
+                        document.getElementById("combobox").appendChild(op);
+                    }
+
+                    if (user != j.user && user != '') {
+                        if (user != 'all')
+                            return;
+                    }
+
+                    // if (user != j.user && user != 'all' && user != '') {
+                    //     return;
+                    // }
+
+                    var html = `
+                    <div class="equip">
+                    <div class="equip-name">
+                        <p>${j.title}</p>
+                    </div>
+                    <div class="user-name">
+                        <p>${j.user}</p>
+                    </div>
+
+                    <div class="del">
+                            <a href="javascript:void(0);" onclick="del('${j.name}');">削除</a>
+
+                    </div>
+
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th colspan="2"></th>
+                                <th colspan="6">装備名</th>
+                                <th colspan="2">装飾品</th>
+                            </tr>
+                        </tbody>
+
+                        <tr>
+                            <th colspan="2">武器</th>
+                            <td colspan="6">${j.wep}</th>
+                            <td colspan="2">${j.wep_dec1}|${j.wep_dec1}|${j.wep_dec1}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">頭</th>
+                            <td colspan="6">${j.helm}</th>
+                            <td colspan="2">${j.helm_dec1}|${j.helm_dec2}|${j.helm_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">胴</th>
+                            <td colspan="6">${j.body}</th>
+                            <td colspan="2">${j.body_dec1}|${j.body_dec2}|${j.body_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">腕</th>
+                            <td colspan="6">${j.hand}</th>
+                            <td colspan="2">${j.hand_dec1}|${j.hand_dec2}|${j.hand_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">腰</th>
+                            <td colspan="6">${j.waist}</th>
+                            <td colspan="2">${j.waist_dec1}|${j.waist_dec2}|${j.waist_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">脚</th>
+                            <td colspan="6">${j.leg}</th>
+                            <td colspan="2">${j.leg_dec1}|${j.leg_dec2}|${j.leg_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">護石</th>
+                            <td colspan="8">${j.charm}</th>
+                        </tr>
+                    </table>`
+
+                    html += `<br>
+                    <table class="skil-table">
+                        <tbody>
+                            <tr>
+                                <th colspan="6">発動スキル</th>
+                            </tr>
+                        `
+
+                    j.skils.forEach(element => {
+                        console.log(element)
+                    });
+                    for (let index = 0; index < 10; index = index + 2) {
+                        html += `<tr>
+                                <td colspan="3">${j.skils[index]}</td>
+                                <td colspan="3">${j.skils[index + 1]}</td>
+                            </tr>`
+
+                    }
+                    html += `</tbody></table>
+                        <br>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="6">コメント</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">${j.comment}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>`
+                    $('.content').append(html);
+                    cnt++;
+                });
+
+                // data.forEach(d => {
+                //     $('.content').html(
+                //         '<script><\/script>'
+                //     )
+                // });
+            }, false);
+        }
+
+
+
+
+    </script>
+
+    <footer>
+
+    </footer>
+</body>
+
+</html>

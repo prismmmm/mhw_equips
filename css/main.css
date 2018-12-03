@@ -1,0 +1,151 @@
+body{
+    margin: 0;
+    padding: 0;
+    /* background: rgb(255, 255, 255); */
+    background-size: cover;
+    background-image: url(https://cdn3.dualshockers.com/wp-content/uploads/2017/06/MHWorld_E3_art3.jpg);
+}
+
+header{
+    height: 50px;
+    width: 100%;
+    background: rgb(97, 97, 97);
+    z-index: 10;
+}
+.header{
+    height: 100%;
+}
+
+footer{
+    height: 50px;
+    width: 100%;
+    background: rgb(97, 97, 97);
+    z-index: 10;
+    position: fixed;
+    bottom: 0;
+}
+.search{
+    width: 40%;
+    height: 100%;
+    margin: auto;
+}
+
+.search input{
+    background: rgb(255, 255, 255);
+    position: relative;
+    width: 100%;
+    height:25px;
+    border-radius: 12.5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+/* a{
+    background: black;
+} */
+
+.main{
+    padding: 0;
+    margin: 0;
+}
+.content{
+    width: 70%;
+    margin: 0 auto;
+    background: rgb(255, 255, 255);
+
+    height:100vh;
+    /* position: relative;
+    width: 50%;
+    height: 100vh;
+    background: white;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,0%);
+    margin: 0;
+    padding: 0; */
+}
+
+
+.equip{
+    text-align: center;
+    border-radius: 0px;
+    width:60%;
+    height: auto;
+    background: rgb(231, 231, 231);
+
+    padding: 20px;
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,0%);
+    margin-bottom: 20px;
+    font-size: 7px;
+}
+
+.equip-name{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    text-align: left;
+    background: rgb(74, 146, 240);
+    float: left;
+    line-height: 0px;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+.user-name{
+    position: relative;
+    right: 50px;
+    color: rgb(255, 255, 255);
+
+    text-align: left;
+    background: rgb(187, 90, 90);
+    float: right;
+    line-height: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.del{  
+    position: relative;
+    right: -40px;
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+    text-align: left;
+    background: rgb(187, 90, 90);
+    float: right;
+    line-height: 0px;
+
+}
+
+table{
+    border-collapse: collapse;
+    font-size: 11px;
+    position: relative;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%,0%);
+    width: 100%;
+
+    border-color: rgb(202, 0, 0);
+    
+    color: rgb(39, 39, 39);
+
+}
+tr{
+    border: 1px solid rgb(201, 201, 201);
+}
+th{
+    background: rgb(230, 230, 230);
+    border: 1px solid rgb(194, 194, 194);
+}
+
+td{
+    background: white;
+    border: 1px solid rgb(202, 202, 202);
+}
+
+.skil-table{
+    table-layout: fixed;
+}
