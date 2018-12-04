@@ -1,17 +1,27 @@
 <?php
   //�������
-  $username ="";
+  $id = "";
+  if(isset($_POST['id']))
+  {
+    $id = $_POST['id'];
+  };
   
-  
+
   $dsn = 'mysql:dbname=mhw_equip;host=localhost';
   $user = 'root';
   $password = '';
   $dbh = new PDO($dsn, $user, $password);
   
+  $sql = "SELECT * FROM equip";
+  // if($id == ''){
+  //   $sql = "SELECT * FROM equip";
+  // }else{
+  //   $sql = "SELECT * FROM `equip` WHERE id = 19980";
+  //   //$sql->bindValue(':id',$id,PDO::PARAM_STR); 
+  // }
 
-  
-$sql = "SELECT * FROM equip";
 foreach ($dbh->query($sql) as $row){
+  
   $arr[] = array(
       'id'=>$row['id'],
       'user'=>$row['user'],

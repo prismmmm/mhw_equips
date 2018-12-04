@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="js/jquery.js"></script>
+    <script src="./spreadsheet/get_gssdata.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="./css/bg.css">
+    <link rel="stylesheet" href="./css/menu.css">
+    <link rel="stylesheet" href="./css/list.css">
+    <link rel="stylesheet" href="./css//header.css">
+    <title>Document </title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="header-content">
+                <div class="header-title">
+                    MHW Equip
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+
+        <div class="content-list">
+
+
+
+        </div>
+    </div>
+
+
+    <!-- <footer>
+
+    </footer> -->
+
+    <script>
+        function getParam(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        window.onload = function () {
+            var id  = getParam('id')
+            //let ary = get_gssdata(add_user);
+            update(id)
+        }
+
+
+        $('#combobox').change(function () {
+            var val = $(this).val();
+            update(val);
+            // if(val != 'none'){
+            //     alert(val)
+            // }
+        })
+
+        function update(id) {
+            var FD = new FormData();
+            FD.append('id',id);
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", `./php/get_equip.php`);
+            ajax.send(FD);
+            ajax.addEventListener("load", function () { // loadイベントを登録します。
+                console.log(ajax.responseText);
+
+                var json_raw = ajax.responseText;
+                var data = JSON.parse(json_raw);
+
+                var filter =[]
+
+                data.forEach(d => {
+                    if(id == d.id){
+                        filter.push(d);
+                        data = filter;
+                    }
+                });
+
+
+                $('.content-list').html('');
+                //document.getElementById("combobox").removeChild(document.getElementById("combobox").lastChild)
+                var cnt = 0;
+                data.forEach(j => {
+                    //select 追加
+
+                    var html = `
+                    <div class="equip">
+                    <div class="equip-name">
+                        <p>${j.title}</p>
+                    </div>
+                    <div class="user-name">
+                        <p>${j.user}</p>
+                    </div>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th colspan="2"></th>
+                                <th colspan="6">装備名</th>
+                                <th colspan="2">装飾品</th>
+                            </tr>
+                        </tbody>
+
+                        <tr>
+                            <th colspan="2">武器</th>
+                            <td colspan="6">${j.wep}</th>
+                            <td colspan="2">${j.wep_dec1}|${j.wep_dec1}|${j.wep_dec1}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">頭</th>
+                            <td colspan="6">${j.helm}</th>
+                            <td colspan="2">${j.helm_dec1}|${j.helm_dec2}|${j.helm_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">胴</th>
+                            <td colspan="6">${j.body}</th>
+                            <td colspan="2">${j.body_dec1}|${j.body_dec2}|${j.body_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">腕</th>
+                            <td colspan="6">${j.hand}</th>
+                            <td colspan="2">${j.hand_dec1}|${j.hand_dec2}|${j.hand_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">腰</th>
+                            <td colspan="6">${j.waist}</th>
+                            <td colspan="2">${j.waist_dec1}|${j.waist_dec2}|${j.waist_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">脚</th>
+                            <td colspan="6">${j.leg}</th>
+                            <td colspan="2">${j.leg_dec1}|${j.leg_dec2}|${j.leg_dec3}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">護石</th>
+                            <td colspan="8">${j.charm}</th>
+                        </tr>
+                    </table>`
+
+                    html += `<br>
+                    <table class="skil-table">
+                        <tbody>
+                            <tr>
+                                <th colspan="6">発動スキル</th>
+                            </tr>
+                        `
+
+                    j.skils.forEach(element => {
+                        console.log(element)
+                    });
+                    for (let index = 0; index < 10; index = index + 2) {
+                        html += `<tr>
+                                <td colspan="3">${j.skils[index]}</td>
+                                <td colspan="3">${j.skils[index + 1]}</td>
+                            </tr>`
+
+                    }
+                    html += `</tbody></table>
+                        <br>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="6">コメント</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">${j.comment}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>`
+                    $('.content-list').append(html);
+                    cnt++;
+                });
+
+                // data.forEach(d => {
+                //     $('.content').html(
+                //         '<script><\/script>'
+                //     )
+                // });
+            }, false);
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

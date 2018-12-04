@@ -7,33 +7,84 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <script src="js/jquery.js"></script>
+    <script src="./spreadsheet/get_gssdata.js"></script>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="./css/bg.css">
+    <link rel="stylesheet" href="./css/menu.css">
+    <link rel="stylesheet" href="./css/list.css">
+    <link rel="stylesheet" href="./css//header.css">
     <title>Document </title>
 </head>
 
 <body>
     <header>
         <div class="header">
-            <a href="add.html"> add equip</a>
-            <!-- <div class="search">
-                <input type="text" id="textbox">
-            </div> -->
-            <select name="horoscope" size="1" id="combobox">
-                <option value="all">all</option>
-            </select>
+            <div class="header-content">
+                <div class="header-title">
+                    MHW Equip
+                </div>
+            </div>
         </div>
     </header>
-    <div class="main">
-
-        <div class="content">
+    <div class="menu">
+        <div class="menu-menu">
 
         </div>
     </div>
+    <div class="content">
+
+        <div class="content-list">
+
+            <div class="sort-menu">
+                <a href="add.html"> add equip</a>
+                <a href="delete.html"> add equip</a>
+                <select name="horoscope" size="1" id="combobox">
+                    <option value="">all</option>
+                </select>
+            </div>
+            <div class="list">
+                <!-- <div class="item-row">
+                    <div class="item">
+                        <div class="item-img" style="background: linear-gradient(rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, 0.438) 70%, rgba(0, 0, 0, 0.671)), url(https://s3-us-west-2.amazonaws.com/jp-samurai-gamers-images/wp-content/uploads/2017/03/14182847/%E3%83%A2%E3%83%B3%E3%83%8F%E3%83%B3%E3%83%80%E3%83%96%E3%83%AB%E3%82%AF%E3%83%AD%E3%82%B9%E3%80%80%E5%A4%AA%E5%88%80.jpg) center bottom / 100% 200px no-repeat;"></div>
+
+                        <div class="title">ガイラアロー雷</div>
+                        <div class="autor">prism</div>
+                    </div>
+                    <div class="item">
+                        <div class="item-img"></div>
+                        <div class="title">アンフィニグラ</div>
+                        <div class="autor">prism</div>
+                    </div>
+                </div>
+ -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <footer>
+
+    </footer> -->
 
     <script>
+        let users = [];
+        let add_user = function (ary) {
+            try {
+                ary[0].forEach(data => {
+                    if (data != 'user') {
+                        let op = document.createElement("option");//value値
+                        op.value = data;
+                        op.text = data;   //テキスト値
+                        document.getElementById("combobox").appendChild(op);
+                    }
+                });
+            } catch{
+
+            }
+        }
+
         window.onload = function () {
-
-
+            let ary = get_gssdata(add_user);
             update('')
         }
 
@@ -62,25 +113,78 @@
         }
 
         function update(user) {
+            var FD = new FormData();
+            FD.append('id', user);
             var ajax = new XMLHttpRequest();
-            ajax.open("get", `./php/get_equip.php`);
-            ajax.send(); // 通信させます。
+            ajax.open("POST", `./php/get_equip.php`);
+            ajax.send(FD);
             ajax.addEventListener("load", function () { // loadイベントを登録します。
                 console.log(ajax.responseText);
 
                 var json_raw = ajax.responseText;
                 var data = JSON.parse(json_raw);
-                $('.content').html('');
+
+                $('.list').html('');
+                var filter = []
+                if (user != '') {
+                    data.forEach(d => {
+                        if(d.user == user){
+                            filter.push(d);
+                        }
+                    });
+
+                    data = filter
+                }
+                
                 //document.getElementById("combobox").removeChild(document.getElementById("combobox").lastChild)
+                for (let i = 0; i < data.length; i = i + 2) {
+                    var html = `<div class="item-row">`
+                    html += `
+                        <div class="item">
+                            <div class="item-img" id='${data[i].id}' style="background: linear-gradient(rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, 0.438) 70%, rgba(0, 0, 0, 0.671)), url(https://s3-us-west-2.amazonaws.com/jp-samurai-gamers-images/wp-content/uploads/2017/03/14182847/%E3%83%A2%E3%83%B3%E3%83%8F%E3%83%B3%E3%83%80%E3%83%96%E3%83%AB%E3%82%AF%E3%83%AD%E3%82%B9%E3%80%80%E5%A4%AA%E5%88%80.jpg) center bottom / 100% 200px no-repeat;"></div>
+                                <script>
+                                    $('#${data[i].id}').click(function(){
+                                        location.href = './detail.html?id=${data[i].id}'
+                                    })
+                                <\/script>    
+                            <div class="title">${data[i].title}</div>
+                            <div class="autor">${data[i].user}</div>
+                        </div>
+                        `
+
+
+                    try {
+                        html += `
+                        <div class="item">
+                            <div class="item-img" id='${data[i + 1].id}' style="background: linear-gradient(rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, 0.438) 70%, rgba(0, 0, 0, 0.671)), url(https://s3-us-west-2.amazonaws.com/jp-samurai-gamers-images/wp-content/uploads/2017/03/14182847/%E3%83%A2%E3%83%B3%E3%83%8F%E3%83%B3%E3%83%80%E3%83%96%E3%83%AB%E3%82%AF%E3%83%AD%E3%82%B9%E3%80%80%E5%A4%AA%E5%88%80.jpg) center bottom / 100% 200px no-repeat;"></div>
+                                <script>
+                                    $('#${data[i + 1].id}').click(function(){
+                                        location.href = './detail.html?id=${data[i + 1].id}'
+                                    })
+                                <\/script>    
+                            <div class="title">${data[i + 1].title}</div>
+                            <div class="autor">${data[i + 1].user}</div>
+                        </div>`
+                    } catch{
+
+                    }
+
+
+                    html += `</div>`
+
+                    $('.list').append(html)
+
+                }
+
                 var cnt = 0;
                 data.forEach(j => {
                     //select 追加
 
                     if (user == '') {
-                        let op = document.createElement("option");//value値
-                        op.value = j.user;
-                        op.text = j.user;   //テキスト値
-                        document.getElementById("combobox").appendChild(op);
+                        // let op = document.createElement("option");//value値
+                        // op.value = j.user;
+                        // op.text = j.user;   //テキスト値
+                        // document.getElementById("combobox").appendChild(op);
                     }
 
                     if (user != j.user && user != '') {
@@ -88,9 +192,7 @@
                             return;
                     }
 
-                    // if (user != j.user && user != 'all' && user != '') {
-                    //     return;
-                    // }
+
 
                     var html = `
                     <div class="equip">
@@ -100,12 +202,6 @@
                     <div class="user-name">
                         <p>${j.user}</p>
                     </div>
-
-                    <div class="del">
-                            <a href="javascript:void(0);" onclick="del('${j.name}');">削除</a>
-
-                    </div>
-
 
                     <table>
                         <tbody>
@@ -184,7 +280,7 @@
                                 </tbody>
                             </table>
                             </div>`
-                    $('.content').append(html);
+                    //$('.content-list').append(html);
                     cnt++;
                 });
 
@@ -200,10 +296,6 @@
 
 
     </script>
-
-    <footer>
-
-    </footer>
 </body>
 
 </html>

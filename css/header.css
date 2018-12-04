@@ -1,0 +1,27 @@
+header{
+    height: 50px;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    z-index: 10;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.089);
+}
+.header{
+    height: 100%;
+}
+
+
+.header-content{
+    color: rgb(53, 53, 53);
+    font-size: 20px;
+    max-width: 900px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.header-title{
+    height: 100%;
+    width: 300px;
+    color: rgb(41, 41, 41);
+    font-weight: bold;
+    line-height: 50px;
+}

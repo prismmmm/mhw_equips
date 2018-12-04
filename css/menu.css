@@ -1,0 +1,32 @@
+.menu{
+    height: 300px;
+    width: 100%;
+}
+
+.menu-menu{ 
+    margin: 0 auto;
+    max-width: 900px;
+    height: 95%;
+    background-image: url(https://cdn3.dualshockers.com/wp-content/uploads/2017/06/MHWorld_E3_art3.jpg);
+    background-size:900px 500px;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.294);
+    position: relative;
+}
+
+.menu-menu::before{
+    background-color: rgba(0, 0, 0, 0.171);
+    position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	content: ' ';
+}
+
+
+@media (max-width:800px){
+    .menu-menu{
+    width: 100%;
+    }
+}

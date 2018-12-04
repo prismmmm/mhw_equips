@@ -7,13 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <script src="./js/jquery.js"></script>
   <title>装備登録</title>
+  <script src="./spreadsheet/jspreadsheet.min.js"></script>
+  <script src="./spreadsheet/get_gssdata.js"></script>
 </head>
 
 <body>
   タイトル： <input type="text" id="title" class="title" /> <br />
   投稿者：
   <select id="user" class="user">
-    <option value="">未選択</option>
+
   </select>
   <br />
   武器種：
@@ -29,162 +31,140 @@
   </select>
   装飾品：
   <select id="wep_dec1" class="dec">
-    <option value="">-</option>
+
   </select>
   <select id="wep_dec2" class="dec">
-    <option value="">-</option>
   </select>
   <select id="wep_dec3" class="dec">
-    <option value="">-</option>
+
   </select>
   <br />
   頭：
-  <select id="helm" class="arm">
-    <option value="">未選択</option>
-  </select>
+  <select id="helm" class="arm"></select>
   装飾品：
   <select id="helm_dec1" class="dec">
-    <option value="">-</option>
   </select>
   <select id="helm_dec2" class="dec">
-    <option value="">-</option>
   </select>
   <select id="helm_dec3" class="dec">
-    <option value="">-</option>
   </select>
 
   <br />
   胴：
-  <select id="body" class="arm">
-    <option value="">未選択</option>
-  </select>
+  <select id="body" class="arm"></select>
   装飾品：
   <select id="body_dec1" class="dec">
-    <option value="">-</option>
   </select>
   <select id="body_dec2" class="dec">
-    <option value="">-</option>
   </select>
   <select id="body_dec3" class="dec">
-    <option value="">-</option>
   </select>
   <br />
   腕：
-  <select id="hand" class="arm">
-    <option value="">未選択</option>
-  </select>
+  <select id="hand" class="arm"></select>
   装飾品：
   <select id="hand_dec1" class="dec">
-    <option value="">-</option>
   </select>
   <select id="hand_dec2" class="dec">
-    <option value="">-</option>
   </select>
   <select id="hand_dec3" class="dec">
-    <option value="">-</option>
   </select>
   <br />
   腰：
-  <select id="waist" class="arm">
-    <option value="">未選択</option>
-  </select>
+  <select id="waist" class="arm"></select>
   装飾品：
   <select id="waist_dec1" class="dec">
-    <option value="">-</option>
+
   </select>
   <select id="waist_dec2" class="dec">
-    <option value="">-</option>
+
   </select>
   <select id="waist_dec3" class="dec">
-    <option value="">-</option>
+
   </select>
   <br />
   脚：
-  <select id="leg" class="arm">
-    <option value="">未選択</option>
-  </select>
+  <select id="leg" class="arm"></select>
   装飾品：
   <select id="leg_dec1" class="dec">
-    <option value="">-</option>
+
   </select>
   <select id="leg_dec2" class="dec">
-    <option value="">-</option>
+
   </select>
   <select id="leg_dec3" class="dec">
-    <option value="">-</option>
+
   </select>
   <br>
   護石：
   <select id="charm" class="charm">
-    <option value="">-</option>
   </select>
 
   <p>発動スキル</p>
   <select id="skil1" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil1_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   &nbsp
   <select id="skil2" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil2_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   <br />
   <select id="skil3" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil3_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   &nbsp
   <select id="skil4" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil4_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   <br />
   <select id="skil5" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil5_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   &nbsp
   <select id="skil6" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil6_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   <br />
   <select id="skil7" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil7_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   &nbsp
   <select id="skil8" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil8_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   <br />
   <select id="skil9" class="skil">
-    <option value="">-</option>
+
   </select>
   <select id="skil9_lv" class="level">
     <option value="Lv0">Lv0</option>
   </select>
   &nbsp
   <select id="skil10" class="skil">
-    <option value="">-</option>
   </select>
   <select id="skil10_lv" class="level">
     <option value="Lv0">Lv0</option>
@@ -196,31 +176,35 @@
   <button type="button" id="button">登録</button>
 
   <script>
-    const users = ["prism", "devi", "taimeshi", "yosshi", "0096", "aruginin"]
-    const skils = ["火強化", "水強化", "雷強化", "氷強化", "龍強化", "火耐性", "水耐性", "雷耐性", "氷耐性", "龍耐性", "ガード強化", "ガード性能", "回避力UP", "回避性能", "回復速度", "火事場力", "感知", "貫通弾・竜の一矢強化", "気絶耐性", "キノコ大好き", "強化持続", "KO術", "広域化", "攻撃", "剛刃研磨", "渾身", "散弾・剛射強化", "弱点特攻", "集中", "瘴気環境適応", "瘴気耐性", "心眼/弾道強化", "睡眠強化", "精霊の加護", "属性開放/装填拡張", "属性やられ耐性", "体術", "体力回復量UP", "体力増強", "匠", "特射強化", "抜刀術", "納刀術", "破壊王", "早食い", "フルチャージ", "砲撃手", "砲術", "ボマー", "砲弾装弾数UP", "満腹感", "見切り", "耳栓", "無属性強化", "弓溜め段階開放", "ランナー", "属性会心", "スタミナ上限突破", "達人芸", "業物","超会心"];
-    const type = { great_sword: '大剣', long_sword: "太刀", sword_and_shild: '片手剣', dual_blates: '双剣', hammer: 'ハンマー', hunting_horn: '狩猟笛', lance: 'ランス', gun_lance: 'ガンランス', switch_axe: 'スラッシュアックス', chage_blade: 'チャージアックス', insent_glaive: '操虫棍', bow: '弓', light_bowgun: 'ライトボウガン', heavy_bowgun: 'ヘヴィボウガン' };
-    const none = ["武器種を選択してください"];
+    let user = ["未選択"]
+    let skil = ['-']
+    let type = { great_sword: '大剣', long_sword: "太刀", sword_and_shild: '片手剣', dual_blates: '双剣', hammer: 'ハンマー', hunting_horn: '狩猟笛', lance: 'ランス', gun_lance: 'ガンランス', switch_axe: 'スラッシュアックス', chage_blade: 'チャージアックス', insent_glaive: '操虫棍', bow: '弓', light_bowgun: 'ライトボウガン', heavy_bowgun: 'ヘヴィボウガン' };
+    let none = ["武器種を選択してください"]
 
-    const bow = ["未選択", "ガイラアロー雷", "ガイラアロー水", "ジャナフアルカウス", "レイ=ファーンライク", "竜骨弓Ⅲ", "飛雷弓【羽々矢】", "ブレイブハンターボウⅡ"];
-    const great_sword = ["未選択", "滅鬼の凶器", "竜熱機関式【鋼翼】改"]
-    const long_sword = ["未選択", "滅尽の一刀", "天上天下無双刀", "カラミティペイン", "ガイラソード火"];
-    const sword_and_shild = ["未選択", "使わんやろwwwww"];
-    const dual_blates = ["未選択", "残滅の爪", "氷炎剣ヴィルマフレア", "残滅の爪"];
-    const hammer = ["未選択", "ブロスシャッター"];
-    const hunting_horn = ["未選択", "使わんやろwwww"];
-    const lance = ["未選択", "亡滅の腕", "ラ・モールの哀愁", "ガロンダーラⅡ", "アトロシスタワー", "エンプレスランス・冥灯"]
-    const gun_lance = ["未選択", "追加予定"]
-    const switch_axe = ["未選択", "ガイラアックス麻痺"]
-    const chage_blade = ["未選択", "タイラントブロスⅡ"]
-    const insent_glaive = ["未選択", "追加予定"]
-    const light_bowgun = ["未選択", "エンプレスシェル・冥灯", "エンプレスシェル・炎妃", "マッドネスグリーフ", "業【カルマ】", "グルゴレットの叫喚"];
-    const heavy_bowgun = ["未選択", "ガイラアサルト 賊", "マグダ・ゲミトゥスⅡ", "アンフィニグラ"];
-    const charms = ["攻撃の護石","体術の護石","KOの護石","覚醒の護石","渾身の護石","茸好の護石","鉄壁の護石","達人の護石","匠の護石","超心の護石","痛撃の護石","抜刀の護石","爆師の護石","無傷の護石","耳栓の護石","友愛の護石"];
-    const wepons = { none, great_sword, long_sword, sword_and_shild, dual_blates, hammer, hunting_horn, lance, gun_lance, switch_axe, chage_blade, insent_glaive, bow, light_bowgun, heavy_bowgun };
-    const armors = ["ウルズα", "ウルズβ", "ウルズγ", "カイザーα", "カイザーβ", "カイザーγ", "キリンα", "キリンβ", "キリンγ", "クシャナα", "クシャナβ", "クシャナγ", "ゼノラージα", "ゼノラージβ", "ゼノラージγ", "ゾラマグγ", "ドラケンα", "マムガイラα", "マムガイラβ", "エンプレスα", "エンプレスβ", "エンプレスγ", "シーカーα", "シーカーβ", "竜王の隻眼α", "オーグα", "オーグβ", "ダンテα", "ギルドクロスα", "ギルドクロスβ", "スカルα", "スカルβ", "デスギアα", "デスギアβ", "ダマスクα", "ダマスクβ", "ドーベルα", "ドーベルβ", "ガンキンα", "ガンキンβ", "龍封じのピアスα", "バゼルα", "バゼルβ", "バンギスα", "バンギスβ", "流星ノ将【兜】α", "ディアネロα", "ディアネロβ", "リオソウルα", "リオソウルβ", "レウスα", "レウスβ", "オリオンα", "アイルーフェイクα", "ラヴァα", "ラヴァβ", "ガロンα", "ガロンβ", "ギエナα", "ギエナβ", "ディアブロα", "ディアブロβ", "ハーベストα", "ブリゲイドα", "ブリゲイドβ", "リオハートα", "リオハートβ", "インゴットα", "インゴットβ", "ハイメタα", "ハイメタβ", "ガストα", "ガストβ", "バルキンα", "バルキンβ"];
-    //const skils = ["属性強化", "攻撃", "防御", "体力"];
+    let bow = ["未選択"]
+    let great_sword = ["未選択"]
+    let long_sword = ["未選択"]
+    let sword_and_shild = ["未選択"]
+    let dual_blates = ["未選択"]
+    let hammer = ["未選択"]
+    let hunting_horn = ["未選択"]
+    let lance = ["未選択"]
+    let gun_lance = ["未選択"]
+    let switch_axe = ["未選択"]
+    let chage_blade = ["未選択"]
+    let insent_glaive = ["未選択"]
+    let light_bowgun = ["未選択"]
+    let heavy_bowgun = ["未選択"]
+    let charm = ['-']
+    let accessory = ['-']
+    let wepons = { none, great_sword, long_sword, sword_and_shild, dual_blates, hammer, hunting_horn, lance, gun_lance, switch_axe, chage_blade, insent_glaive, bow, light_bowgun, heavy_bowgun };
+    let helm = ["未選択"]
+    let body = ["未選択"]
+    let hand = ["未選択"]
+    let waist = ["未選択"]
+    let leg = ["未選択"]
 
-    const levels = ["Lv1", "Lv2", "Lv3", "Lv4", "Lv5", "Lv6", "Lv7"];
+    let levels = ["Lv1", "Lv2", "Lv3", "Lv4", "Lv5", "Lv6", "Lv7"]
 
     let data = {
       user: "user name",
@@ -228,9 +212,105 @@
       type: "",
       comment: "",
       charm: ""
+    }
+
+    let callback = ary => {
+      console.log(ary);
+      for (var i = 0; i < ary.length; i++) {
+        try {
+          ary[i].forEach(data => {
+            var data_ary = data.split(',')
+            if (ary[i][0] != data) {
+              eval(`${ary[i][0]}.push(data_ary[0])`)
+            }
+          });
+        } catch{
+        }
+      }
+      set_selectbox();
     };
 
+
+    let set_selectbox = () => {
+
+      //武器種を追加
+      Object.keys(type).forEach(function (key) {
+        const val = this[key];
+        let op = document.createElement("option");
+        op.value = key;
+        op.text = val;
+        document.getElementById("type").appendChild(op);
+      }, type);
+
+
+      //ユーザ　追加
+      console.log(user)
+      user.forEach(d => {
+        let op = document.createElement("option")
+        op.value = d
+        op.text = d
+        document.getElementsByClassName("user")[0].appendChild(op)
+      })
+
+      var armors = ['helm', 'body', 'hand', 'waist', 'leg']
+      armors.forEach(arm => {
+        eval(`${arm}.forEach(data => {
+          let op = document.createElement("option")
+          op.value = data
+          op.text = data
+          document.getElementById('${arm}').appendChild(op)
+      })`)
+      });
+
+      //装飾品　追加
+      let charms = document.getElementsByClassName("dec");
+      for (let i = 0; i < charms.length; i++) {
+        accessory.forEach(data => {
+          let op = document.createElement("option");
+          op.value = data;
+          op.text = data;
+          document.getElementsByClassName("dec")[i].appendChild(op);
+        });
+      }
+
+      //護石追加
+      charm.forEach(data => {
+        let op = document.createElement("option");
+        op.value = data;
+        op.text = data;
+        document.getElementById('charm').appendChild(op);
+      });
+
+      //スキル追加
+      let skils = document.getElementsByClassName('skil')
+      for (let i = 0; i < skils.length; i++) {
+        skil.forEach(data => {
+          let op = document.createElement("option");
+          op.value = data;
+          op.text = data;
+          document.getElementsByClassName('skil')[i].appendChild(op);
+        });
+      }
+
+      //レベル追加
+
+      //level
+      arr = document.getElementsByClassName("level");
+      for (let i = 0; i < arr.length; i++) {
+        levels.forEach(d => {
+          let op = document.createElement("option");
+          op.value = d;
+          op.text = d;
+          document.getElementsByClassName("level")[i].appendChild(op);
+        });
+      }
+
+    }
+
     window.onload = function () {
+
+      let ary = get_gssdata(callback);
+
       //deta配列初期化
       for (let i = 1; i < 11; i++) {
         data[`skil${i}`] = "-";
@@ -302,78 +382,6 @@
         data[id] = $(this).val();
         console.log(data);
       });
-
-      //装飾品追加
-      let arr = document.getElementsByClassName("dec");
-      for (let i = 0; i < arr.length; i++) {
-        skils.forEach(d => {
-          let op = document.createElement("option");
-          op.value = d;
-          op.text = d;
-          document.getElementsByClassName("dec")[i].appendChild(op);
-        });
-      }
-
-      Object.keys(type).forEach(function (key) {
-        const val = this[key];
-        let op = document.createElement("option");
-        op.value = key;
-        op.text = val;
-        document.getElementById("type").appendChild(op);
-      }, type);
-
-      arr = document.getElementsByClassName("arm");
-      for (let i = 0; i < arr.length; i++) {
-        armors.forEach(d => {
-          let op = document.createElement("option");
-          op.value = d;
-          op.text = d;
-          document.getElementsByClassName("arm")[i].appendChild(op);
-        });
-      }
-
-      //skil
-      arr = document.getElementsByClassName("skil");
-      for (let i = 0; i < arr.length; i++) {
-        skils.forEach(d => {
-          let op = document.createElement("option");
-          op.value = d;
-          op.text = d;
-          document.getElementsByClassName("skil")[i].appendChild(op);
-        });
-      }
-      //level
-      arr = document.getElementsByClassName("level");
-      for (let i = 0; i < arr.length; i++) {
-        levels.forEach(d => {
-          let op = document.createElement("option");
-          op.value = d;
-          op.text = d;
-          document.getElementsByClassName("level")[i].appendChild(op);
-        });
-      }
-
-      //charm
-      arr = document.getElementsByClassName("charm");
-      for (let i = 0; i < arr.length; i++) {
-        charms.forEach(d => {
-          let op = document.createElement("option");
-          op.value = d;
-          op.text = d;
-          document.getElementsByClassName("charm")[i].appendChild(op);
-        });
-      }
-
-      //charm
-      arr = document.getElementsByClassName("user");
-      for (let i = 0; i < arr.length; i++) {
-       users.forEach(d => {
-          let op = document.createElement("option");
-          op.value = d;
-          op.text = d;
-          document.getElementsByClassName("user")[i].appendChild(op);
-        });
-      }
     };
   </script>
 </body>

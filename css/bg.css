@@ -1,0 +1,101 @@
+
+/* BG */
+.bg {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 370px;
+    height: 370px;
+    zoom: 1.5;
+    z-index: 1;
+
+}
+
+#s1 {
+    position: absolute;
+    animation: rotate-anime 120s linear infinite;
+}
+
+#s2 {
+    position: absolute;
+    animation: rotate-anime 110s linear infinite;
+}
+
+#s3 {
+    position: absolute;
+    animation: rotate-anime 70s linear infinite;
+}
+
+#s4 {
+    position: absolute;
+    animation: rotate-anime 60s linear infinite;
+}
+
+#s5 {
+    position: absolute;
+    animation: rotate-anime 70s linear infinite;
+}
+
+#s6 {
+    position: absolute;
+    animation: rotate-anime 70s linear infinite;
+}
+
+#s7 {
+    position: absolute;
+    animation: rotate-anime 90s linear infinite;
+}
+
+#s8 {
+    position: absolute;
+    animation: rotate-anime 90s linear infinite;
+}
+
+#s9 {
+    position: absolute;
+    animation: rotate-anime 80s linear infinite;
+}
+
+#s10 {
+    position: absolute;
+    animation: rotate-anime 100s linear infinite;
+}
+
+#s11 {
+    position: absolute;
+}
+
+@keyframes rotate-anime {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes horizontal {
+    0% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes vertical {
+    0% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
