@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="./js/jquery.js"></script>
+    <script src="./jspreadsheet.min.js"></script>
+    <script src="get_gssdata.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      window.onload = function() {
+        const arr = get_gssdata(callback);
+      };
+
+      let callback = arr => {
+        console.log(arr);
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i])
+            arr[i].forEach(data => {
+              //console.log(data);
+            });
+        }
+      };
+    </script>
+  </body>
+</html>
