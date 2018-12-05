@@ -84,7 +84,8 @@ foreach ($dbh->query($sql) as $row){
 
       'comment'=>$row['comment'],
       'title'=>$row['title'],
-      'charm'=>$row['charm']
+      'charm'=>$row['charm'],
+      'time'=>$row['time']
   );
   //print $row['id'].'<br>';
 }

@@ -12,6 +12,24 @@
 </head>
 
 <body>
+  <div class="loading">
+    <img src="./img/loading.gif" alt="">
+  </div>
+
+  <style>
+    .loading{
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      background: black;
+    }
+
+    .loading img{
+      position: absolute;
+      right: 50px;
+      bottom: 50px;
+    }
+  </style>
   タイトル： <input type="text" id="title" class="title" /> <br />
   投稿者：
   <select id="user" class="user">
@@ -40,6 +58,10 @@
   </select>
   <br />
   頭：
+  <input type="text" autocomplete="on" list="mylist" id='input'>
+    <datalist id="helm">
+    </datalist>
+  </input>
   <select id="helm" class="arm"></select>
   装飾品：
   <select id="helm_dec1" class="dec">
@@ -178,14 +200,14 @@
   <script>
     let user = ["未選択"]
     let skil = ['-']
-    let type = { great_sword: '大剣', long_sword: "太刀", sword_and_shild: '片手剣', dual_blates: '双剣', hammer: 'ハンマー', hunting_horn: '狩猟笛', lance: 'ランス', gun_lance: 'ガンランス', switch_axe: 'スラッシュアックス', chage_blade: 'チャージアックス', insent_glaive: '操虫棍', bow: '弓', light_bowgun: 'ライトボウガン', heavy_bowgun: 'ヘヴィボウガン' };
+    let type = { great_sword: '大剣', long_sword: "太刀", sword_and_shield: '片手剣', dual_blades: '双剣', hammer: 'ハンマー', hunting_horn: '狩猟笛', lance: 'ランス', gun_lance: 'ガンランス', switch_axe: 'スラッシュアックス', chage_blade: 'チャージアックス', insent_glaive: '操虫棍', bow: '弓', light_bowgun: 'ライトボウガン', heavy_bowgun: 'ヘヴィボウガン' };
     let none = ["武器種を選択してください"]
 
     let bow = ["未選択"]
     let great_sword = ["未選択"]
     let long_sword = ["未選択"]
-    let sword_and_shild = ["未選択"]
-    let dual_blates = ["未選択"]
+    let sword_and_shield = ["未選択"]
+    let dual_blades = ["未選択"]
     let hammer = ["未選択"]
     let hunting_horn = ["未選択"]
     let lance = ["未選択"]
@@ -197,7 +219,7 @@
     let heavy_bowgun = ["未選択"]
     let charm = ['-']
     let accessory = ['-']
-    let wepons = { none, great_sword, long_sword, sword_and_shild, dual_blates, hammer, hunting_horn, lance, gun_lance, switch_axe, chage_blade, insent_glaive, bow, light_bowgun, heavy_bowgun };
+    let wepons = { none, great_sword, long_sword, sword_and_shield, dual_blades, hammer, hunting_horn, lance, gun_lance, switch_axe, chage_blade, insent_glaive, bow, light_bowgun, heavy_bowgun };
     let helm = ["未選択"]
     let body = ["未選択"]
     let hand = ["未選択"]
@@ -211,7 +233,8 @@
       title: "no title",
       type: "",
       comment: "",
-      charm: ""
+      charm: "",
+      time:''
     }
 
     let callback = ary => {
@@ -305,6 +328,7 @@
         });
       }
 
+      $('.loading').hide();
     }
 
     window.onload = function () {
@@ -360,11 +384,13 @@
       });
 
       $('#button').click(function () {
+        var date = new Date();
+        data['time'] = date;
         var json = JSON.stringify(data, null, "\t")
         const res = window.confirm('この内容で登録しますか？');
         if (res) {
           send_data = json;
-
+          
           $.ajax({
             url: "php/set_equip.php", // 送信先のPHP
             type: "POST", // POSTで送る

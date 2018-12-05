@@ -31,8 +31,8 @@
 ));
 
 
-  $stmt = $dbh->prepare("INSERT INTO `equip` (`id`, `user`, `t`, `wep`, `wep_dec1`, `wep_dec2`, `wep_dec3`, `helm`, `helm_dec1`, `helm_dec2`, `helm_dec3`, `body`, `body_dec1`, `body_dec2`, `body_dec3`, `hand`, `hand_dec1`, `hand_dec2`, `hand_dec3`, `waist`, `waist_dec1`, `waist_dec2`, `waist_dec3`, `leg`, `leg_dec1`, `leg_dec2`, `leg_dec3`, `skil1`, `skil2`, `skil3`, `skil4`, `skil5`, `skil6`, `skil7`, `skil8`, `skil9`, `skil10`, `skil1_lv`, `skil2_lv`, `skil3_lv`, `skil4_lv`, `skil5_lv`, `skil6_lv`, `skil7_lv`, `skil8_lv`, `skil9_lv`, `skil10_lv`, `comment`, `title`,`charm`) 
-  VALUES (:id, :user, :t, :wep, :wep_dec1, :wep_dec2, :wep_dec3,  :helm, :helm_dec1, :helm_dec2, :helm_dec3,  :body, :body_dec1, :body_dec2, :body_dec3,:hand,:hand_dec1, :hand_dec2, :hand_dec3, :waist, :waist_dec1, :waist_dec2, :waist_dec3, :leg,:leg_dec1, :leg_dec2, :leg_dec3, :skil1, :skil2, :skil3, :skil4, :skil5, :skil6, :skil7, :skil8, :skil9, :skil10, :skil1_lv, :skil2_lv, :skil3_lv, :skil4_lv, :skil5_lv, :skil6_lv, :skil7_lv, :skil8_lv, :skil9_lv, :skil10_lv, :comment,:title,:charm)");
+  $stmt = $dbh->prepare("INSERT INTO `equip` (`id`, `user`, `t`, `wep`, `wep_dec1`, `wep_dec2`, `wep_dec3`, `helm`, `helm_dec1`, `helm_dec2`, `helm_dec3`, `body`, `body_dec1`, `body_dec2`, `body_dec3`, `hand`, `hand_dec1`, `hand_dec2`, `hand_dec3`, `waist`, `waist_dec1`, `waist_dec2`, `waist_dec3`, `leg`, `leg_dec1`, `leg_dec2`, `leg_dec3`, `skil1`, `skil2`, `skil3`, `skil4`, `skil5`, `skil6`, `skil7`, `skil8`, `skil9`, `skil10`, `skil1_lv`, `skil2_lv`, `skil3_lv`, `skil4_lv`, `skil5_lv`, `skil6_lv`, `skil7_lv`, `skil8_lv`, `skil9_lv`, `skil10_lv`, `comment`, `title`,`charm`,`time`) 
+  VALUES (:id, :user, :t, :wep, :wep_dec1, :wep_dec2, :wep_dec3,  :helm, :helm_dec1, :helm_dec2, :helm_dec3,  :body, :body_dec1, :body_dec2, :body_dec3,:hand,:hand_dec1, :hand_dec2, :hand_dec3, :waist, :waist_dec1, :waist_dec2, :waist_dec3, :leg,:leg_dec1, :leg_dec2, :leg_dec3, :skil1, :skil2, :skil3, :skil4, :skil5, :skil6, :skil7, :skil8, :skil9, :skil10, :skil1_lv, :skil2_lv, :skil3_lv, :skil4_lv, :skil5_lv, :skil6_lv, :skil7_lv, :skil8_lv, :skil9_lv, :skil10_lv, :comment,:title,:charm,:time)");
   //$stmt = $dbh->prepare("INSERT INTO test(id, username) VALUES (:id,:username)");
   
    $stmt->bindValue(':id',$id,PDO::PARAM_INT);
@@ -93,6 +93,7 @@
 
    $stmt->bindValue(':comment',$data['comment'],PDO::PARAM_STR);
    $stmt->bindValue(':charm',$data['charm'],PDO::PARAM_STR);
+   $stmt->bindValue(':time',$data['time'],PDO::PARAM_STR);
 
   $stmt->execute(); 
 

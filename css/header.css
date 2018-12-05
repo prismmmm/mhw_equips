@@ -4,14 +4,31 @@ header{
     background: rgb(255, 255, 255);
     z-index: 10;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.089);
+    position: fixed;
+
+        background-size: 640px 360px;
+    background-image: url(https://osu.ppy.sh/images/layout/nav-backgrounds/triangles-combined.png);
+
 }
+
+.header-overlay{
+    position: absolute;
+    top: 0;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,rgba(187,17,119,.9)),color-stop(37.5%,#b17),color-stop(50%,#b17),color-stop(50%,#222),to(#222));
+    background-image: linear-gradient(rgba(187,17,119,.9),#b17 37.5%,#b17 50%,#222 0,#222);
+    background-size: 200% 200%;
+    width: 100%;
+    height: 100%;
+}
+
+
 .header{
     height: 100%;
 }
 
 
 .header-content{
-    color: rgb(53, 53, 53);
+    color: rgb(255, 255, 255);
     font-size: 20px;
     max-width: 900px;
     height: 100%;
@@ -21,7 +38,7 @@ header{
 .header-title{
     height: 100%;
     width: 300px;
-    color: rgb(41, 41, 41);
+    color: rgb(255, 255, 255);
     font-weight: bold;
     line-height: 50px;
 }
